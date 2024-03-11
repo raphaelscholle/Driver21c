@@ -322,14 +322,14 @@ static s32 update_txdesc(struct xmit_frame *pxmitframe, u8 *pmem, s32 sz, u8 bag
 		if(pattrib->monitor_mode_frame==_TRUE){
             //RTW_WARN("OpenHD Is monitor frame ldpc:%d stbc:%d bw:%d\n",(int)pattrib->stbc,(int)pattrib->ldpc,(int)pattrib->bwmode);
             if (pattrib->ldpc)
-                SET_TX_DESC_DATA_LDPC_8822B(ptxdesc, 1);
+                SET_TX_DESC_DATA_LDPC_8821C(ptxdesc, 1);
             if (pattrib->stbc)
-                SET_TX_DESC_DATA_STBC_8822B(ptxdesc, 1);
-            SET_TX_DESC_DATA_BW_8822B(ptxdesc, pattrib->bwmode);
+                SET_TX_DESC_DATA_STBC_8821C(ptxdesc, 1);
+            SET_TX_DESC_DATA_BW_8821C(ptxdesc, pattrib->bwmode);
             if(pattrib->sgi == _TRUE) {
-                SET_TX_DESC_DATA_SHORT_8822B(ptxdesc, 1);
+                SET_TX_DESC_DATA_SHORT_8821C(ptxdesc, 1);
             } else {
-                SET_TX_DESC_DATA_SHORT_8822B(ptxdesc, 0);
+                SET_TX_DESC_DATA_SHORT_8821C(ptxdesc, 0);
             }
         }
 	}
