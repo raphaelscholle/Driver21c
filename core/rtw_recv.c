@@ -4450,7 +4450,7 @@ int recv_frame_monitor(_adapter *padapter, union recv_frame *rframe)
 
 	if (ndev->type == ARPHRD_IEEE80211_RADIOTAP) {
 		/* fill radiotap header */
-		if (rtw_fill_radiotap_hdr(padapter, &rframe->u.hdr.attrib, (u8 *)pskb) == _FAIL) {
+		if (rtl8812au_fill_radiotap_hdr(padapter, rframe) == _FAIL) {
 			ret = _FAIL;
 			goto exit;
 		}
