@@ -289,6 +289,8 @@ static s32 update_txdesc(struct xmit_frame *pxmitframe, u8 *pmem, s32 sz, u8 bag
 #endif
 	} else if ((pxmitframe->frame_tag & 0x0f) == MGNT_FRAMETAG) {
 		/* RTW_INFO("pxmitframe->frame_tag == MGNT_FRAMETAG\n");	*/
+		//RTW_WARN("OpenHD pxmitframe->frame_tag & 0x0f) == MGNT_FRAMETAG\n");
+        // OpenHD: These are monitor mode frames
 		SET_TX_DESC_MBSSID_8821C(ptxdesc, pattrib->mbssid & 0xF);
 		SET_TX_DESC_USE_RATE_8821C(ptxdesc, 1);
 		DriverFixedRate = 0x01;
@@ -312,11 +314,25 @@ static s32 update_txdesc(struct xmit_frame *pxmitframe, u8 *pmem, s32 sz, u8 bag
 		} else {
 			SET_TX_DESC_RTY_LMT_EN_8821C(ptxdesc, 1);
 			if (pattrib->retry_ctrl == _TRUE)
-				SET_TX_DESC_RTS_DATA_RTY_LMT_8821C(ptxdesc, 6);
+				SET_TX_DESC_RTS_DATA_RTY_LMT_8821C(ptxdesc, 32); //Original 6
 			else
 /* nrm */
 				SET_TX_DESC_RTS_DATA_RTY_LMT_8821C(ptxdesc, 0);
-		}
+
+		if(pattrib->monitor_mode_frame==_TRUE){
+            //RTW_WARN("OpenHD Is monitor frame ldpc:%d stbc:%d bw:%d\n",(int)pattrib->stbc,(int)pattrib->ldpc,(int)pattrib->bwmode);
+            if (pattrib->ldpc)
+                SET_TX_DESC_DATA_LDPC_8822B(ptxdesc, 1);
+            if (pattrib->stbc)
+                SET_TX_DESC_DATA_STBC_8822B(ptxdesc, 1);
+            SET_TX_DESC_DATA_BW_8822B(ptxdesc, pattrib->bwmode);
+            if(pattrib->sgi == _TRUE) {
+                SET_TX_DESC_DATA_SHORT_8822B(ptxdesc, 1);
+            } else {
+                SET_TX_DESC_DATA_SHORT_8822B(ptxdesc, 0);
+            }
+        }
+	}
 
 #ifdef CONFIG_XMIT_ACK
 		/* CCX-TXRPT ack for xmit mgmt frames */

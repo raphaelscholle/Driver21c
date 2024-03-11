@@ -7679,6 +7679,8 @@ void update_monitor_frame_attrib(_adapter *padapter, struct pkt_attrib *pattrib)
 
 	pattrib->mbssid = 0;
 	pattrib->hw_ssn_sel = pxmitpriv->hw_ssn_seq_no;
+	// OpenHD added
+    pattrib->monitor_mode_frame = _TRUE;
 
 }
 
