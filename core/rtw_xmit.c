@@ -5077,7 +5077,7 @@ fail:
 s32 rtw_monitor_xmit_entry(struct sk_buff *skb, struct net_device *ndev)
 {
     return rtl8812au_rtw_monitor_xmit_entry(skb,ndev);
-/*u16 frame_ctl;
+	u16 frame_ctl;
 /* nrm */
 //	struct ieee80211_radiotap_header rtap_hdr;
 	_adapter *padapter = (_adapter *)rtw_netdev_priv(ndev);
