@@ -5076,8 +5076,8 @@ fail:
 // OpenHD: ioctl_cfg80211 rtw_cfg80211_monitor_if_xmit_entry goes - over some hoops - all the way to here
 s32 rtw_monitor_xmit_entry(struct sk_buff *skb, struct net_device *ndev)
 {
-    return rtl8812au_rtw_monitor_xmit_entry(skb,ndev);
 	u16 frame_ctl;
+    return rtl8812au_rtw_monitor_xmit_entry(skb,ndev);
 /* nrm */
 //	struct ieee80211_radiotap_header rtap_hdr;
 	_adapter *padapter = (_adapter *)rtw_netdev_priv(ndev);
@@ -5383,7 +5383,6 @@ fail:
 	rtw_skb_free(skb);
 	return 0;
 }
-#endif
 
 /*
  *
